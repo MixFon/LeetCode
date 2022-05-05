@@ -78,6 +78,45 @@ class Solution {
         if div != 0 { result.append(div) }
         return result.reversed()
     }
+    
+    // MARK: 67. Add Binary
+    private func stringToBinary(_ s: String) -> [Int] {
+            var num = [Int]()
+            for c in s {
+                if c == "1" {
+                    num.append(1)
+                } else {
+                    num.append(0)
+                }
+            }
+            return num
+        }
+        
+    func addBinary(_ a: String, _ b: String) -> String {
+        var one = stringToBinary(a)
+        var two = stringToBinary(b)
+        if one.count < two.count {
+            (one, two) = (two, one)
+        }
+        var div = 0
+        var result = [Int]()
+        for bitOne in one.reversed() {
+            let bitTwo: Int
+            if !two.isEmpty {
+                bitTwo = two.popLast()!
+            } else {
+                bitTwo = 0
+            }
+            let num = (bitOne + bitTwo + div)
+            result.append(num % 2)
+            div = num / 2
+        }
+        if div != 0 { result.append(div) }
+        var str = ""
+        result = result.reversed()
+        result.forEach( { str.append(String($0)) })
+        return str
+    }
 }
 let one = Solution()
 var arr = [1,1,2]
