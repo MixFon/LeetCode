@@ -117,6 +117,18 @@ class Solution {
         result.forEach( { str.append(String($0)) })
         return str
     }
+	
+	// MARK: 69. Sqrt(x)
+	func mySqrt(_ x: Int) -> Int {
+		var temp = Double(0)
+		var sqrt = Double(0)
+		sqrt = Double(x) / Double(2)
+		while sqrt != temp {
+			temp = sqrt
+			sqrt = (Double(x) / temp + temp) / 2.0
+		}
+		return Int(sqrt)
+	}
 }
 let one = Solution()
 var arr = [1,1,2]
