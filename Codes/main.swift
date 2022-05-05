@@ -129,6 +129,42 @@ class Solution {
 		}
 		return Int(sqrt)
 	}
+	
+	
+	 public class ListNode {
+	     public var val: Int
+	     public var next: ListNode?
+	     public init() { self.val = 0; self.next = nil; }
+	     public init(_ val: Int) { self.val = val; self.next = nil; }
+	     public init(_ val: Int, _ next: ListNode?) { self.val = val; self.next = next; }
+	 }
+	
+	func deleteDuplicates(_ head: ListNode?) -> ListNode? {
+			var elem = head
+			var uniqueElemts = Set<Int>()
+			while elem != nil {
+				print(elem!.val)
+				print(uniqueElemts)
+				//uniqueElemts.insert()
+				uniqueElemts = uniqueElemts.intersection(Set<Int>([head!.val]))
+				elem = elem!.next
+			}
+			var arr = [Int]()
+			uniqueElemts.forEach({arr.append($0)})
+			print(arr)
+			var newHead: ListNode? = nil
+			for num in arr {
+				if newHead == nil {
+					newHead = ListNode(num)
+				} else {
+					let node = ListNode(num)
+					node.next = newHead
+					newHead = node
+				}
+			}
+			return newHead
+		}
+	
 }
 let one = Solution()
 var arr = [1,1,2]
