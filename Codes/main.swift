@@ -216,6 +216,7 @@ class Solution {
 		}
 		return c == 1
 	}
+	
 	func removeElements(_ head: ListNode?, _ val: Int) -> ListNode? {
 		if head == nil { return nil }
 		var result = head
@@ -239,7 +240,37 @@ class Solution {
 		}
 		return result
 	}
+	
+	func containsDuplicate(_ nums: [Int]) -> Bool {
+		var dict = [Int: Int]()
+		for n in nums {
+			if dict[n] != nil { return true }
+			dict[n] = 1
+		}
+		return false
+	}
+	
+	func reverseList(_ head: ListNode?) -> ListNode? {
+		   if head == nil { return nil }
+		   var iter = head
+		   var newHead = ListNode(iter!.val)
+		   while iter != nil {
+			   iter = iter!.next
+			   guard let iter = iter else { return newHead }
+			   let node = ListNode(iter.val)
+			   node.next = newHead
+			   newHead = node
+		   }
+		   return newHead
+	   }
 }
-let one = Solution()
-var arr = [1,1,2]
-print(one.removeDuplicates(&arr), arr)
+//let one = Solution()
+//var arr = [1,1,2]
+//print(one.removeDuplicates(&arr), arr)
+
+let a = "sadf"
+let b = "sssd"
+for (e, r) in zip(a, b) {
+	print(e, r)
+}
+
