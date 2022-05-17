@@ -263,6 +263,21 @@ class Solution {
 		   }
 		   return newHead
 	   }
+	 func containsNearbyDuplicate(_ nums: [Int], _ k: Int) -> Bool {
+        var dict = [Int: Int]()
+        for (i, n) in nums.enumerated() {
+            if let index = dict[n] {
+                if abs(index - i) <= k {
+                    return true
+                } else {
+                    dict[n] = i
+                }
+            } else {
+                dict[n] = i
+            }
+        }
+        return false
+    }
 }
 //let one = Solution()
 //var arr = [1,1,2]
