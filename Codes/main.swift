@@ -251,33 +251,99 @@ class Solution {
 	}
 	
 	func reverseList(_ head: ListNode?) -> ListNode? {
-		   if head == nil { return nil }
-		   var iter = head
-		   var newHead = ListNode(iter!.val)
-		   while iter != nil {
-			   iter = iter!.next
-			   guard let iter = iter else { return newHead }
-			   let node = ListNode(iter.val)
-			   node.next = newHead
-			   newHead = node
-		   }
-		   return newHead
-	   }
-	 func containsNearbyDuplicate(_ nums: [Int], _ k: Int) -> Bool {
-        var dict = [Int: Int]()
-        for (i, n) in nums.enumerated() {
-            if let index = dict[n] {
-                if abs(index - i) <= k {
-                    return true
-                } else {
-                    dict[n] = i
-                }
-            } else {
-                dict[n] = i
-            }
-        }
-        return false
-    }
+		if head == nil { return nil }
+		var iter = head
+		var newHead = ListNode(iter!.val)
+		while iter != nil {
+			iter = iter!.next
+			guard let iter = iter else { return newHead }
+			let node = ListNode(iter.val)
+			node.next = newHead
+			newHead = node
+		}
+		return newHead
+	}
+	
+	func containsNearbyDuplicate(_ nums: [Int], _ k: Int) -> Bool {
+		var dict = [Int: Int]()
+		for (i, n) in nums.enumerated() {
+			if let index = dict[n] {
+				if abs(index - i) <= k {
+					return true
+				} else {
+					dict[n] = i
+				}
+			} else {
+				dict[n] = i
+			}
+		}
+		return false
+	}
+	
+	func isPowerOfTwo(_ n: Int) -> Bool {
+		return n > 0 && (n & (n - 1)) == 0
+	}
+	
+	func summaryRanges(_ nums: [Int]) -> [String] {
+		if nums.isEmpty { return [] }
+		var ans = [String]()
+		var str: String? = nil
+		var start = nums[0]
+		var end = nums[0]
+		for i in 1..<nums.count {
+			if nums[i] - nums[i - 1] > 1 {
+				if start == end {
+					ans.append(String(start))
+				} else {
+					ans.append("\(start)->\(end)")
+				}
+				start = nums[i]
+			}
+			end = nums[i]
+		}
+		if start == end {
+			ans.append(String(start))
+		} else {
+			ans.append("\(start)->\(end)")
+		}
+		return ans
+	}
+	func containsNearbyDuplicate(_ nums: [Int], _ k: Int) -> Bool {
+		var dict = [Int: Int]()
+		for (i, n) in nums.enumerated() {
+			if let index = dict[n] {
+				if abs(index - i) <= k {
+					return true
+				} else {
+					dict[n] = i
+				}
+			} else {
+				dict[n] = i
+			}
+		}
+		return false
+	}
+	
+	public class TreeNode {
+		public var val: Int
+		public var left: TreeNode?
+		public var right: TreeNode?
+		public init() { self.val = 0; self.left = nil; self.right = nil; }
+		public init(_ val: Int) { self.val = val; self.left = nil; self.right = nil; }
+		public init(_ val: Int, _ left: TreeNode?, _ right: TreeNode?) {
+			self.val = val
+			self.left = left
+			self.right = right
+		}
+	}
+	
+	func invertTree(_ root: TreeNode?) -> TreeNode? {
+		guard let root = root else { return nil }
+		(root.left, root.right) = (root.right, root.left)
+		_ = invertTree(root.left)
+		_ = invertTree(root.right)
+		return root
+	}
 }
 //let one = Solution()
 //var arr = [1,1,2]
