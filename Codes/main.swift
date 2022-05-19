@@ -343,6 +343,61 @@ class Solution {
 		return one == two
 	}
 	
+	private func deep(_ root: TreeNode?, _ dst: TreeNode?, _ level: Int) -> Int {
+			guard let root = root else { return -1 }
+			if root.val == dst!.val {
+			   return level
+			}
+			let one = deep(root.left, dst, level + 1)
+			let two = deep(root.right, dst, level + 1)
+			return max(one, two)
+		}
+		
+		
+		private func parent(_ root: TreeNode?, _ dst: Int) -> TreeNode? {
+			guard let root = root else { return nil }
+			if let left = root.left?.val {
+				if left == dst {
+					return root
+				}
+			}
+			if let right = root.right?.val {
+				if right == dst {
+					return root
+				}
+			}
+			if let node = parent(root.left, dst) {
+				return node
+			}
+			if let node = parent(root.right, dst) {
+				return node
+			}
+			return nil
+		}
+		
+		func lowestCommonAncestor(_ root: TreeNode?, _ p: TreeNode?, _ q: TreeNode?) -> TreeNode? {
+			guard let root = root else { return nil }
+			var one = deep(root, p, 0)
+			var two = deep(root, q, 0)
+			var oneP: TreeNode? = p
+			var twoP: TreeNode? = q
+			//print(one, two, oneP?.val, twoP?.val)
+			while one != two {
+				//print(one, two)
+				if one > two {
+					oneP = parent(root, oneP!.val)
+					one -= 1
+				} else {
+					twoP = parent(root, twoP!.val)
+					two -= 1
+				}
+			}
+			while oneP!.val != twoP!.val {
+				oneP = parent(root, oneP!.val)
+				twoP = parent(root, twoP!.val)
+			}
+			return oneP
+		}
 	
 }
 //let one = Solution()
