@@ -308,21 +308,6 @@ class Solution {
 		}
 		return ans
 	}
-	func containsNearbyDuplicate(_ nums: [Int], _ k: Int) -> Bool {
-		var dict = [Int: Int]()
-		for (i, n) in nums.enumerated() {
-			if let index = dict[n] {
-				if abs(index - i) <= k {
-					return true
-				} else {
-					dict[n] = i
-				}
-			} else {
-				dict[n] = i
-			}
-		}
-		return false
-	}
 	
 	public class TreeNode {
 		public var val: Int
@@ -344,6 +329,21 @@ class Solution {
 		_ = invertTree(root.right)
 		return root
 	}
+	
+	func isPalindrome(_ head: ListNode?) -> Bool {
+		if head == nil { return false }
+		var one = ""
+		var two = ""
+		var iter = head
+		while iter != nil {
+			one = one + String(iter!.val)
+			two = String(iter!.val) + two
+			iter = iter!.next
+		}
+		return one == two
+	}
+	
+	
 }
 //let one = Solution()
 //var arr = [1,1,2]
